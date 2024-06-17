@@ -1,0 +1,109 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Company {
+    private String name;
+    private String address;
+    private Inventory inventory;
+
+    public Company(String name, String address) {
+        this.name = name;
+        this.address = address;
+        this.inventory = new Inventory();
+    }
+
+    public void issueRawMaterial(String material, int quantity) {
+        inventory.issueRawMaterial(material, quantity);
+    }
+    public void addFinishedGoods(String product, int quantity) {
+        inventory.addFinishedGoods(product, quantity);
+    }
+    public void sellFinishedGoods(String product, int quantity) {
+        inventory.sellFinishedGoods(product, quantity);
+    }
+    public void displayInventory() {
+        inventory.displayInventory();
+    }
+}
+class Inventory {
+    private Map<String, Integer> rawMaterials;
+    private Map<String, Integer> finishedProducts;
+    private Map<String, Integer> reorderLevels;
+
+    public Inventory() {
+        rawMaterials = new HashMap<>();
+        finishedProducts = new HashMap<>();
+        reorderLevels = new HashMap<>();
+        
+        rawMaterials.put("Steel", 100);
+        rawMaterials.put("Plastic", 200);
+        finishedProducts.put("Toy Car", 50);
+        finishedProducts.put("Bicycle", 20);
+        reorderLevels.put("Steel", 50);
+        reorderLevels.put("Plastic", 100);
+    }
+    public void issueRawMaterial(String material, int quantity) {
+        if (rawMaterials.containsKey(material)) {
+            int currentStock = rawMaterials.get(material);
+            if (currentStock >= quantity) {
+                rawMaterials.put(material, currentStock - quantity);
+                System.out.println("Issued " + quantity + " of " + material + ". New stock: " + (currentStock - quantity));
+                checkReorderLevel(material);
+            } else {
+                System.out.println("Insufficient stock of " + material);
+            }
+        } else {
+            System.out.println("Raw material " + material + " not found in inventory.");
+        }
+    }
+
+    public void addFinishedGoods(String product, int quantity) {
+        finishedProducts.put(product, finishedProducts.getOrDefault(product, 0) + quantity);
+        System.out.println("Added " + quantity + " of " + product + ". New stock: " + finishedProducts.get(product));
+    }
+
+    public void sellFinishedGoods(String product, int quantity) {
+        if (finishedProducts.containsKey(product)) {
+            int currentStock = finishedProducts.get(product);
+            if (currentStock >= quantity) {
+                finishedProducts.put(product, currentStock - quantity);
+                System.out.println("Sold " + quantity + " of " + product + ". New stock: " + (currentStock - quantity));
+            } else {
+                System.out.println("Insufficient stock of " + product);
+            }
+        } else {
+            System.out.println("Finished product " + product + " not found in inventory.");
+        }
+    }
+
+    private void checkReorderLevel(String material) {
+        if (rawMaterials.get(material) <= reorderLevels.get(material)) {
+            System.out.println("Reorder level reached for " + material + ". Please reorder.");
+        }
+    }
+
+    public void displayInventory() {
+        System.out.println("Raw Materials in Stock:");
+        for (String material : rawMaterials.keySet()) {
+            System.out.println(material + ": " + rawMaterials.get(material));
+        }
+        System.out.println("\nFinished Products in Stock:");
+        for (String product : finishedProducts.keySet()) {
+            System.out.println(product + ": " + finishedProducts.get(product));
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Company company = new Company("ABC Manufacturing", "123 Industrial Ave");
+
+        company.displayInventory();
+
+        company.issueRawMaterial("Steel", 20);
+        company.addFinishedGoods("Toy Car", 10);
+        company.sellFinishedGoods("Toy Car", 5);
+
+        company.displayInventory();
+    }
+}
