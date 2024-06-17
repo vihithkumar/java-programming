@@ -1,0 +1,42 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Main{
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input the number
+        System.out.print("Enter a number: ");
+        String num = scanner.next();
+
+        // Get unique permutations
+        Set<String> uniquePermutations = getUniquePermutations(num);
+
+        // Print unique permutations
+        System.out.println("Unique permutations of the number are:");
+        for (String permutation : uniquePermutations) {
+            System.out.println(permutation);
+        }
+
+        scanner.close();
+    }
+
+    // Method to generate unique permutations
+    private static void generatePermutations(String prefix, String str, Set<String> result) {
+        if (str.length() == 0) {
+            result.add(prefix);
+        } else {
+            for (int i = 0; i < str.length(); i++) {
+                generatePermutations(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1), result);
+            }
+        }
+    }
+
+    private static Set<String> getUniquePermutations(String num) {
+        Set<String> result = new HashSet<>();
+        generatePermutations("", num, result);
+        return result;
+    }
+}
