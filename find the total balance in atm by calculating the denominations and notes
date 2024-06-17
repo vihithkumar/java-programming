@@ -1,0 +1,23 @@
+import java.util.Scanner;
+import java.util.Scanner;
+public class Main{
+    public static void main(String[]args){
+        Scanner reader = new Scanner(System.in);
+        int [] denominations = new int[4];
+        int[] notes = new int[4];
+        for (int i=0;i<4;i++) {
+            System.out.println("enter the " + i+1 + "th denominations");
+            denominations[i] = reader.nextInt();
+
+            System.out.print("enter the " + i+1 + "st number of notes");
+            notes[i] = reader.nextInt();
+        }
+        int totalbalance = 0;
+        for(int i=0;i<4;i++){
+
+            totalbalance += denominations[i]*notes[i];
+
+        }
+        System.out.print("the total balance in ATM is: " +totalbalance);
+    }
+}
