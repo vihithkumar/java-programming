@@ -1,0 +1,21 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("enter a number");
+        int num = reader.nextInt();
+        while (num > 0)
+            if (num % 2 == 0) {
+                System.out.print(num);
+                num = num / 2;
+                System.out.println(" is EVEN; divisible by 2 and optain:"+num);
+            }
+
+        else{
+            System.out.print(num);
+                num = num -1;
+            System.out.println(" is ODD; subtract 1 and optain:"+num);
+
+        }
+    }
+}
