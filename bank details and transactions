@@ -1,0 +1,109 @@
+import java.util.Scanner;
+
+public class BankAccount {
+    private String depositorName;
+    private String accountNumber;
+    private String accountType;
+    private double balance;
+    private static final double MIN_BALANCE = 500;
+
+    // Constructor
+    public BankAccount(String depositorName, String accountNumber, String accountType, double initialBalance) {
+        this.depositorName = depositorName;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        if (initialBalance >= MIN_BALANCE) {
+            this.balance = initialBalance;
+        } else {
+            System.out.println("Initial balance must be at least " + MIN_BALANCE + " rupees.");
+            this.balance = MIN_BALANCE;
+        }
+    }
+
+    // Method to display account details
+    public void displayAccountDetails() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Depositor Name: " + depositorName);
+        System.out.println("Account Type: " + accountType);
+        System.out.println("Balance: " + balance);
+    }
+
+    // Method to deposit an amount
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount + ". New Balance: " + balance);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Method to withdraw an amount
+    public void withdraw(double amount) {
+        if (amount > 0 && (balance - amount) >= MIN_BALANCE) {
+            balance -= amount;
+            System.out.println("Withdrew: " + amount + ". New Balance: " + balance);
+        } else if (amount <= 0) {
+            System.out.println("Invalid withdraw amount.");
+        } else {
+            System.out.println("Insufficient balance. Minimum balance of " + MIN_BALANCE + " rupees must be maintained.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read account details from user
+        System.out.println("Enter depositor name:");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter account number:");
+        String accountNumber = scanner.nextLine();
+
+        System.out.println("Enter account type (Savings/Current):");
+        String accountType = scanner.nextLine();
+
+        System.out.println("Enter initial balance:");
+        double initialBalance = scanner.nextDouble();
+
+        // Create a BankAccount object
+        BankAccount account = new BankAccount(name, accountNumber, accountType, initialBalance);
+
+        // Display account details
+        account.displayAccountDetails();
+
+        // Perform deposit and withdraw operations based on user input
+        while (true) {
+            System.out.println("\nChoose an operation:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Display Account Details");
+            System.out.println("4. Exit");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter amount to deposit:");
+                    double depositAmount = scanner.nextDouble();
+                    account.deposit(depositAmount);
+                    break;
+                case 2:
+                    System.out.println("Enter amount to withdraw:");
+                    double withdrawAmount = scanner.nextDouble();
+                    account.withdraw(withdrawAmount);
+                    break;
+                case 3:
+                    account.displayAccountDetails();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
