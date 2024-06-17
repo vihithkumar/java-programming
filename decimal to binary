@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class DecimalToBinary {
+  public static void main(String[] args) {
+    // User input
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter a decimal number: ");
+    int num = sc.nextInt();
+    sc.close();
+
+    // Solution
+
+    // initialize an array to store binary number
+    int[] binaryNum = new int[100];
+    // counter for binary array
+    int i = 0;
+    while (num > 0) {
+      // storing remainder in binary array
+      binaryNum[i] = num % 2;
+      num = num / 2;
+      i++;
+    }
+
+    // printing binary array in reverse order
+    System.out.print("Binary number: ");
+    for (int j = i - 1; j >= 0; j--) {
+      System.out.print(binaryNum[j]);
+    }
+  }
+}
