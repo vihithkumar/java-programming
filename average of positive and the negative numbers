@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class Main {
+    // Function to check if a number is perfect
+    public static boolean isPerfect(int num) {
+        int sum = 0;
+
+        // Loop to find all divisors and calculate their sum
+        for (int i = 1; i <= num / 2; i++) {
+            if (num % i == 0) {
+                sum += i;
+            }
+        }
+
+        // Check if the sum of divisors equals the number itself
+        return sum == num;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of perfect numbers to find: ");
+        int n = scanner.nextInt();
+
+        int count = 0;
+        int number = 1;
+
+        System.out.println("The first " + n + " perfect numbers are:");
+
+        // Loop until we find n perfect numbers
+        for (; count < n; number++) {
+            if (isPerfect(number)) {
+                System.out.println(number);
+                count++;
+            }
+        }
+    }
+}
