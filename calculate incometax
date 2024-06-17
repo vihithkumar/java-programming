@@ -1,0 +1,26 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        System.out.print("Enter a income ");
+        int num = reader.nextInt();
+if (num<250000)
+
+{
+    System.out.print("the tax is 0");
+}
+else if(num>250000&&num<500000)
+{
+    System.out.print("the tax is"+ num*10/100);
+}
+else if(num>500000&&num<1000000)
+{
+    System.out.print("the tax is "+num*20/100);
+}
+else
+{
+    System.out.print("the tax is "+ num*30/100);
+}
+        System.out.println();
+    }
+}
