@@ -1,0 +1,27 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+    public static int findMthMax(int[] array, int M) {
+        Arrays.sort(array);
+        return array[array.length - M];
+    }
+
+    public static int findNthMin(int[] array, int N) {
+        Arrays.sort(array);
+        return array[N - 1];
+    }
+
+    public static void main(String[] args) {
+        int[] array = {10, 3, 5, 8, 6, 2, 7, 9, 1, 4};
+        int M = 2;  // 2nd maximum
+        int N = 3;  // 3rd minimum
+        int MthMax = findMthMax(array, M);
+        int NthMin = findNthMin(array, N);
+        int sumResult = MthMax + NthMin;
+        int diffResult = MthMax - NthMin;
+        System.out.println("Sum of Mth maximum and Nth minimum: " + sumResult);
+        System.out.println("Difference between Mth maximum and Nth minimum: " + diffResult);
+    }
+}
