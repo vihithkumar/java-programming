@@ -1,0 +1,28 @@
+import java.util.Scanner;
+public class Main{
+
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("enter the string ");
+        String line = reader.nextLine();
+        System.out.println(lengthOfLastWord(line));
+
+    }
+
+    public static int lengthOfLastWord(String s) {
+        int lastWordLength = 0;
+
+        int i = s.length() - 1;
+
+        while (i >= 0 && s.charAt(i) == ' ') {
+            i--;
+        }
+
+        while (i >= 0 && s.charAt(i) != ' ') {
+            lastWordLength++;
+            i--;
+        }
+
+        return lastWordLength;
+    }
+}
