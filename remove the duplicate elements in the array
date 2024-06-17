@@ -1,0 +1,40 @@
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+
+public class Main {
+    public static int[] removeDuplicates(int[] array) {
+        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        for (int element : array) {
+            set.add(element);
+        }
+        int[] uniqueArray = new int[set.size()];
+        int index = 0;
+        for (int element : set) {
+            uniqueArray[index++] = element;
+        }
+
+        return uniqueArray;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of elements in the array: ");
+        int n = scanner.nextInt();
+
+        int[] array = new int[n];
+
+        System.out.println("Enter the elements:");
+
+        for (int i = 0; i < n; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        int[] uniqueArray = removeDuplicates(array);
+
+        System.out.println("Array without duplicates: " + Arrays.toString(uniqueArray));
+
+        scanner.close();
+    }
+}
